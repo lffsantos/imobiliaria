@@ -58,7 +58,7 @@ http://localhost:8000/cms/imovel/edit/<ID\>
 
 #### Lista de Imóveis Cadastrados
 
-http://localhost:8000/admin/core/imovel/
+http://localhost:8000/cms/imovel/
 
 ### WebSite
 
