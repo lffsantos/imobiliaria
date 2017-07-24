@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load thumbnails %}
+{% block body %}
+    <div id="content">
+    <!-- Form Name -->
+        <legend style="text-align: center;">Lista de Imóveis</legend>
+        <legend style="text-align: left; padding-left: 10px;">
+            <a href="/cms/imovel/new/" class="btn btn-primary">Cadastrar Novo Imóvel</a>
+        </legend>
+        <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Img</th>
+              <th>Descrição</th>
+              <th>Endereço</th>
+              <th>Valor</th>
+              <th>#</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for imovel in imoveis %}
+            <tr>
+                <td>
+                    {% get_thumbnail imovel.imagem "150x150" crop="center" as thumbnail %}
+                    <img src="{{ thumbnail.url }}" alt="{{ imovel.nome }}" style="width: {{ thumbnail.width }}" />
+              </td>
+              <td>
+                    {{ imovel.descricao }}
+              </td>
+              <td>
+                  <b>Endereço:</b> {{ imovel.end }} - <b>Bairro:</b> {{imovel.bairro}} - <b>Cidade:</b> {{ imovel.cidade }} -<b> UF:</b> {{ imovel.uf }}
+              </td>
+              <td>{{ imovel.valor }}</td>
+              <td>
+                  <a href="/cms/imovel/edit/{{ imovel.pk }}">Editar</a>
+              </td>
+              <td>
+                  <form action="/cms/imovel/delete/{{ imovel.pk }}" method="POST" class="form-horizontal">
+                      {% csrf_token %}
+                    <input name="id" value="{{ imovel.pk }}" type="hidden"/>
+                    <button id="delete" name="delete" class="btn btn-link">Apagar</button>
+                  </form>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    </div>
+{% endblock %}

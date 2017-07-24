@@ -62,10 +62,10 @@ def edit_imovel(request, id):
 @login_required(login_url='/login/')
 def delete_imovel(request, id):
     if request.method == 'POST':
-        imovel = Imovel.objects.get(id)
+        imovel = Imovel.objects.get(id=id)
         imovel.delete()
 
-    return redirect('save_imovel')
+    return redirect('listagem')
 
 
 def list_imoveis(request):
@@ -92,3 +92,9 @@ def list_imoveis(request):
     context['filters'] = filters
 
     return render(request, 'core/list_imoveis.html', context)
+
+
+@login_required(login_url='/login/')
+def listagem(request):
+    imoveis = Imovel.objects.all()
+    return render(request, 'core/listagem.html', {'imoveis': imoveis})
