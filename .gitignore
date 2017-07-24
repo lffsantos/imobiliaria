@@ -41,5 +41,5 @@ npm-debug.log
 spritesmith-generated/
 spritesmith.scss
 
-
+.env
 .venv

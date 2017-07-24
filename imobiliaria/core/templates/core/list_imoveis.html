@@ -1,0 +1,122 @@
+{% load thumbnails %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Imobiliaria LSant</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap-select-1.12.4/css/bootstrap-select.css">
+    <!-- Custom styles for this template -->
+    <link href="/static/galery.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse bg-inverse">
+      <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand">Imóveis</a>
+      </div>
+    </div>
+
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Imóveis</h1>
+        <p class="lead text-muted">
+            Aqui você encontra os melhores imóveis para alugar!
+        </p>
+      </div>
+    </section>
+
+    <div class="container" style="text-align: center">
+        <b style="text-align: center">Filtros</b>
+        <div class="row">
+        <form action="/" method="POST">
+            {% csrf_token %}
+            <div class="card">
+              Estado:
+              <select name='uf__in' class="selectpicker" data-live-search="true" multiple data-selected-text-format="count">
+                  {% for uf in ufs %}
+                      <option value="{{ uf }}">{{ uf }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="card">
+              Cidade:
+              <select name='cidade__in' class="selectpicker" data-live-search="true" multiple data-selected-text-format="count">
+                  {% for cidade in cidades %}
+                      <option value="{{ cidade }}">{{ cidade }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="card">
+              Bairro:
+              <select name='bairro__in' class="selectpicker" data-live-search="true" multiple data-selected-text-format="count">
+                  {% for bairro in bairros %}
+                      <option value="{{ bairro }}">{{ bairro }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <input type="submit" value="Buscar">
+        </form>
+        </div>
+      </div>
+    <div class="container">
+      <div class="row">
+        <div style="text-align: left">
+            {% for key, value in filters.items %}
+                <b>{{ key }}:</b> {{ value }}<br>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="album text-muted">
+      <div class="container">
+      <div class="row">
+        {% for imovel in imoveis %}
+            <div class="card">
+            {% get_thumbnail imovel.imagem "150x150" crop="center" as thumbnail %}
+            <img src="{{ thumbnail.url }}" alt="The thumbnail" style="width: {{ thumbnail.width }}" />
+            <p class="card-text">
+                <b>Rua: </b>{{ imovel.end }}<br>
+                <b>Bairro: </b> {{ imovel.bairro }}<br>
+                <b>Cidade: </b>{{ imovel.cidade }}<br>
+                <b>Valor: </b> 0
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+      </div>
+    </div>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Voltar ao Topo</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://v4-alpha.getbootstrap.com/assets/js/vendor/holder.min.js"></script>
+    <script>
+      $(function () {
+        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+      });
+    </script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script src="/static/plugins/bootstrap-select-1.12.4/js/bootstrap-select.js"></script>
+      <script src="/static/plugins/bootstrap-select-1.12.4/js/i18n/defaults-pt_BR.min.js"></script>
+
+  </body>
+</html>

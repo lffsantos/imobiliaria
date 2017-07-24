@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div id="content">
+        <form action="/cms/imovel/edit/{{ imovel.pk }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <fieldset>
+        <div style="text-align: center;">
+            <p style="color: green">{{ msg.sucesso }}</p>
+            <p style="color: red">{{ msg.error }}</p>
+        </div>
+        <!-- Form Name -->
+        <legend style="text-align: center">Editar</legend>
+
+        <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="nome">Nome</label>
+              <div class="col-md-4">
+              <input id="nome" name="nome" type="text" placeholder="nome" value="{{ imovel.nome }}" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="descricao">Descrição</label>
+              <div class="col-md-4">
+              <input id="descricao" name="descricao" type="text" placeholder="descrição" value="{{ imovel.descricao }}" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="cep">CEP</label>
+              <div class="col-md-4">
+              <input id="cep" name="cep" type="text" placeholder="cep" value="{{ imovel.cep }}" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="valor">Valor</label>
+              <div class="col-md-4">
+              <input id="cep" name="valor" type="text" placeholder="valor"  value="{{ imovel.valor }}" class="form-control input-md">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="imagem">Imagem</label>
+              <div class="col-md-4">
+              <input type="file" id="imagem" name="imagem">
+                  <img src="{{ imovel.imagem }}" width="350px;" height="280px;">
+              </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group" style="text-align: center">
+          <div class="col-md-12">
+             <input name="id" value="{{ imovel.pk }}" type="hidden">
+             <button id="update" name="update" class="btn btn-success">Atualizar</button>
+             <a href="/cms/imovel/new" class="btn btn-primary blue">Cadastrar Novo</a>
+
+          </div>
+        </div>
+    </form>
+
+    </div>
+
+
+{% endblock %}
