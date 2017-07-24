@@ -20,7 +20,7 @@ class ImovelForm(ModelForm):
     def is_valid(self):
         cep = self.data.get('cep', '')
         if cep == '' or len(cep) != 8 or not cep.isnumeric():
-            raise ValidationError('Informe um CEP válido.')
+            raise ValidationError('Informe um CEP válido. (somente números)')
         if not self.files.get('imagem') and not self.instance.pk:
             raise ValidationError('Adicione uma Imagem ao Anuncio')
         if self.data.get('nome', '') == '':

@@ -81,12 +81,12 @@
         {% for imovel in imoveis %}
             <div class="card">
             {% get_thumbnail imovel.imagem "150x150" crop="center" as thumbnail %}
-            <img src="{{ thumbnail.url }}" alt="The thumbnail" style="width: {{ thumbnail.width }}" />
+            <img src="{{ thumbnail.url }}" alt="{{ imovel.nome }}" style="width: {{ thumbnail.width }}" />
             <p class="card-text">
                 <b>Rua: </b>{{ imovel.end }}<br>
                 <b>Bairro: </b> {{ imovel.bairro }}<br>
                 <b>Cidade: </b>{{ imovel.cidade }}<br>
-                <b>Valor: </b> 0
+                <b>Valor: </b> {{ imovel.valor }}
             </p>
           </div>
         {% endfor %}

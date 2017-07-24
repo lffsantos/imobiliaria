@@ -112,10 +112,16 @@ class ImovelPostInValidEdit(TestCase):
 
 class ImovelList(TestCase):
     def setUp(self):
-        self.imovel1 = mommy.make(Imovel, nome='imovel1', cep='45608850')
-        self.imovel2 = mommy.make(Imovel, nome='imovel2', cep='41830580')
-        self.resp = self.client.get(r('list_imoveis'))
+        img = open(root + '/casa.jpg', 'rb')
+        uploaded = SimpleUploadedFile(img.name, img.read())
+        data = dict(nome="casa x", cep="45608850",
+                    descricao="casa para alugar na praia",
+                    valor="100", imagem=uploaded)
+
+        user = User.objects.create_user(username='user', email='user@example.com', password='xxxx')
+        self.logged_in = self.client.login(username=user.username, password='xxxx')
+        self.resp = self.client.post(r('save_imovel'), data)
 
     def test_list(self):
-        self.assertContains(self.resp, 'imovel1')
-        self.assertContains(self.resp, 'imovel2')
+        self.resp = self.client.get(r('list_imoveis'))
+        self.assertContains(self.resp, 'Caminho Quatro')
